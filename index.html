@@ -41,7 +41,10 @@ a{color:inherit;text-decoration:none;}
 .eng{font-family:"Jost",sans-serif;}
 
 /* scaleRoot: PC layout is authored at a fixed design width and uniformly
-   scaled down (via JS-set zoom) so the arrangement never reflows/stacks. */
+   scaled down (via JS transform:scale) so the arrangement never reflows/stacks.
+   The viewport wrapper clips the un-scaled overflow and is height-compensated
+   by JS so the footer follows the visually-scaled content with no gap. */
+#scaleViewport{overflow:hidden;width:100%;}
 #scaleRoot{transform-origin:top left;}
 
 /* ============ decorations ============ */
@@ -331,6 +334,7 @@ footer{background:var(--cream);padding:34px 0 40px;border-top:1px solid var(--li
 <div class="nav-overlay" id="navOverlay"></div>
 
 <!-- scaleRoot keeps the PC layout intact and scales it down on smaller screens -->
+<div id="scaleViewport">
 <main id="scaleRoot">
 
 <!-- ===================== HERO ===================== -->
@@ -497,6 +501,7 @@ footer{background:var(--cream);padding:34px 0 40px;border-top:1px solid var(--li
 </section>
 
 </main>
+</div>
 <!-- /scaleRoot -->
 
 <!-- ===================== FOOTER ===================== -->
@@ -522,25 +527,42 @@ footer{background:var(--cream);padding:34px 0 40px;border-top:1px solid var(--li
 
 <script>
 // Scale the PC layout uniformly so the arrangement never reflows on smaller
-// screens. The content is authored at DESIGN_WIDTH and zoomed to fit.
+// screens. The content is authored at DESIGN_WIDTH and scaled to fit using
+// transform:scale (works reliably on every browser incl. iOS Safari, unlike
+// `zoom`). A wrapper height-compensates so the footer follows with no gap, and
+// a ResizeObserver keeps the height in sync when content grows (e.g. FAQ open).
 (function(){
   var DESIGN_WIDTH=1280;
   var root=document.getElementById('scaleRoot');
-  if(!root) return;
+  var vp=document.getElementById('scaleViewport');
+  if(!root||!vp) return;
+  var scaled=false;
+  function syncHeight(){
+    if(scaled) vp.style.height=root.getBoundingClientRect().height+'px';
+  }
   function fit(){
     var w=document.documentElement.clientWidth;
     if(w>=DESIGN_WIDTH){
+      scaled=false;
       root.style.width='';
-      root.style.zoom='';
+      root.style.transform='';
+      vp.style.height='';
     }else{
+      scaled=true;
+      var s=w/DESIGN_WIDTH;
       root.style.width=DESIGN_WIDTH+'px';
-      root.style.zoom=(w/DESIGN_WIDTH).toFixed(5);
+      root.style.transform='scale('+s.toFixed(5)+')';
+      syncHeight();
     }
   }
   fit();
   window.addEventListener('resize',fit);
   window.addEventListener('orientationchange',fit);
   window.addEventListener('load',fit);
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fit);}
+  if(window.ResizeObserver){
+    new ResizeObserver(syncHeight).observe(root);
+  }
 })();
 
 // mobile navigation toggle
