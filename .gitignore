@@ -1,0 +1,8 @@
+# OS / editor
+.DS_Store
+.thumbnail
+
+# 大容量・サイト未使用ファイル
+FUKUYA_standalone.html
+uploads/
+img/_orig_backup/

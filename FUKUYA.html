@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FU・KU・YA ｜ 鎌倉の婦人服とオーダーメイド布団のお店</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FBF7EE;
+  --cream-deep:#F7F0E2;
+  --paper:#ffffff;
+  --ink:#48463d;
+  --ink-soft:#7c7869;
+  --green:#6f8354;
+  --green-text:#62794a;
+  --green-deep:#5e7347;
+  --mustard:#e6b54a;
+  --beige:#f2e7d3;
+  --beige-card:#f4ecdc;
+  --pink:#f6e7de;
+  --sage-band:#dfe2cd;
+  --sage-band-deep:#d3d8bd;
+  --line:#e7ddca;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:"Zen Kaku Gothic New",-apple-system,sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px;position:relative;}
+.eng{font-family:"Jost",sans-serif;}
+
+/* scaleRoot: PC layout is authored at a fixed design width and uniformly
+   scaled down (via JS-set zoom) so the arrangement never reflows/stacks. */
+#scaleRoot{transform-origin:top left;}
+
+/* ============ decorations ============ */
+.deco{position:absolute;pointer-events:none;user-select:none;z-index:0;}
+.float-a{animation:floatA 7.5s ease-in-out infinite;}
+.float-b{animation:floatB 8.5s ease-in-out infinite;}
+@keyframes floatA{0%,100%{transform:translateY(0)}50%{transform:translateY(-13px)}}
+@keyframes floatB{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+/* gentle horizontal sway (bicycle) */
+.sway-x{animation:swayX 9s ease-in-out infinite;}
+@keyframes swayX{0%,100%{transform:translateX(0)}50%{transform:translateX(18px)}}
+/* slow drifting sway for line-art graphics */
+.line-sway{animation:lineSway 11s ease-in-out infinite;transform-origin:center;}
+@keyframes lineSway{0%,100%{transform:rotate(-3deg) translateY(0)}50%{transform:rotate(3deg) translateY(-7px)}}
+/* slow drift for the scattered dot graphics */
+.dot-anim{animation:dotDrift 9s ease-in-out infinite;animation-delay:var(--d,0s);}
+@keyframes dotDrift{0%,100%{transform:translate(0,0)}50%{transform:translate(8px,-9px)}}
+
+/* ============ reveal ============ */
+[data-reveal]{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.21,.9,.34,1) var(--d,0s),transform .75s cubic-bezier(.21,.9,.34,1) var(--d,0s);}
+[data-reveal].is-visible{opacity:1;transform:none;}
+[data-reveal="blob"]{transform:translateY(12px) scale(.9);}
+[data-reveal="blob"].is-visible{transform:none;}
+[data-reveal="fade"]{transform:none;transition:opacity .9s ease var(--d,0s);}
+[data-reveal="pop"]{transform:scale(.86);transition:opacity .7s ease var(--d,0s),transform .7s cubic-bezier(.34,1.56,.5,1) var(--d,0s);}
+[data-reveal="pop"].is-visible{transform:none;}
+
+/* ============ buttons ============ */
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:14px;
+  font-size:15px;font-weight:500;letter-spacing:.04em;
+  color:var(--green-text);
+  background:#fff;border:1.5px solid #cdd1ba;
+  padding:13px 26px;border-radius:40px;cursor:pointer;
+  transition:transform .35s cubic-bezier(.34,1.4,.5,1),box-shadow .35s ease,border-color .35s ease;
+}
+.btn-ghost .arw{transition:transform .35s cubic-bezier(.34,1.4,.5,1);font-family:"Jost";}
+.btn-ghost:hover{transform:translateY(-3px);box-shadow:0 12px 24px -12px rgba(110,131,84,.5);border-color:var(--green);}
+.btn-ghost:hover .arw{transform:translateX(5px);}
+.btn-ghost:active{transform:translateY(1px);}
+/* half-size variant of the ghost button */
+.btn-ghost.btn-sm{font-size:11px;gap:8px;padding:6px 13px;border-width:1px;}
+.btn-ghost.btn-sm .arw{font-size:13px;}
+
+/* extra block shown only inside the mobile hamburger panel */
+.nav-extra{display:none;}
+
+/* ============ HEADER ============ */
+header{position:relative;z-index:50;padding:26px 0 14px;}
+.hd{display:grid;grid-template-columns:1fr auto minmax(236px,1fr);align-items:center;gap:24px;}
+nav.main{justify-self:center;}
+.logo .brand{font-family:"Jost";font-weight:400;font-size:29px;letter-spacing:.11em;color:var(--ink);line-height:1;white-space:nowrap;}
+.logo .sub{font-size:11.5px;letter-spacing:.02em;color:var(--ink-soft);margin-top:7px;white-space:nowrap;}
+nav.main{display:flex;gap:28px;}
+nav.main>a{position:relative;font-size:15px;font-weight:500;padding:6px 2px;color:var(--ink);}
+nav.main>a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--green);transition:width .35s cubic-bezier(.21,.9,.34,1);}
+nav.main>a:hover::after,nav.main>a.active::after{width:100%;}
+nav.main>a.active{color:var(--green-text);}
+.hd-cta{position:absolute;top:2px;right:0;z-index:40;}
+.hd-cta img{width:228px;transition:transform .4s cubic-bezier(.34,1.5,.5,1),filter .4s ease;}
+.hd-cta:hover img{transform:scale(1.06) translateY(-2px);filter:drop-shadow(0 10px 16px rgba(94,115,71,.35));}
+.hd-cta:active img{transform:scale(1.02);}
+.nav-line-cta{display:none;}
+
+/* ============ hamburger ============ */
+.nav-toggle{display:none;position:absolute;top:50%;right:0;transform:translateY(-50%);z-index:60;width:46px;height:46px;border:none;background:transparent;cursor:pointer;flex-direction:column;justify-content:center;align-items:center;gap:6px;padding:0;}
+.nav-toggle span{display:block;width:26px;height:2px;background:var(--ink);border-radius:2px;transition:transform .35s cubic-bezier(.34,1.4,.5,1),opacity .25s ease;}
+.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(8px) rotate(45deg);}
+.nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0;}
+.nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-8px) rotate(-45deg);}
+.nav-overlay{position:fixed;inset:0;background:rgba(72,70,61,.35);opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s ease;z-index:25;}
+.nav-overlay.open{opacity:1;visibility:visible;}
+
+/* ============ HERO ============ */
+.hero{position:relative;padding:18px 0 58px;}
+.hero-grid{display:grid;grid-template-columns:0.92fr 1.2fr;gap:26px;align-items:center;position:relative;z-index:5;}
+.hero-copy{position:relative;z-index:6;padding-top:10px;}
+.script-k{width:208px;margin:0 0 16px 6px;}
+.hero h1{font-weight:900;font-size:48px;line-height:1.42;letter-spacing:.02em;color:#403e36;}
+.hero h1 .gr{color:var(--green-text);}
+.hero .lead{margin-top:26px;font-size:15.5px;line-height:2.05;color:#5f5c51;font-weight:500;}
+.hero .place{display:inline-flex;align-items:center;gap:9px;margin-top:30px;font-size:16px;font-weight:700;color:var(--ink);white-space:nowrap;}
+.pin{width:19px;height:19px;flex:none;}
+.hero-media{position:relative;min-height:600px;z-index:5;}
+.ph-frame{overflow:visible;}
+.hero-media .interior{width:99%;margin-left:auto;}
+.hero-media .interior img,.hero-media .storefront img{transition:transform .55s cubic-bezier(.34,1.2,.5,1);transform-origin:center;}
+.hero-media .storefront{position:absolute;left:-4%;bottom:-3%;width:46%;z-index:6;}
+.hero-media .interior:hover img{transform:rotate(-2.2deg);}
+.hero-media .storefront:hover img{transform:rotate(2.2deg);}
+.script-f{position:absolute;right:-6px;bottom:34px;width:140px;z-index:6;}
+
+/* ============ section heads ============ */
+.sec-head{text-align:center;position:relative;z-index:5;}
+.sec-head .lbl{height:40px;margin:0 auto 10px;width:auto;}
+.sec-head .lbl img{height:100%;width:auto;margin:0 auto;}
+.sec-head .lbl img{max-width:100%;}
+.sec-head .eyebrow{font-family:"Jost",sans-serif;color:var(--green-text);font-size:19px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;line-height:1;margin:0 0 8px;}
+.sec-head h2{font-weight:700;font-size:33px;letter-spacing:.04em;color:#403e36;}
+.sec-head h2 em{font-style:normal;color:var(--green-text);font-size:1.18em;font-weight:900;padding:0 2px;}
+
+/* ============ SERVICE ============ */
+.service{position:relative;padding:46px 0 54px;}
+.service-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:42px;position:relative;z-index:5;}
+.svc{position:relative;display:flex;flex-direction:column;}
+.svc .badge{width:54px;height:54px;border-radius:50%;background:var(--green);color:#fff;font-family:"Jost";font-weight:400;font-size:20px;display:flex;align-items:center;justify-content:center;letter-spacing:.04em;box-shadow:0 8px 18px -8px rgba(94,115,71,.6);}
+.svc h3{font-weight:700;font-size:25px;line-height:1.5;margin:18px 0 0;color:#403e36;}
+.svc .photo{margin:20px 0;}
+/* equal height for both service images, but show the whole (wavy) image */
+.svc .photo img{width:100%;height:460px;object-fit:contain;object-position:center;transition:transform .55s cubic-bezier(.34,1.2,.5,1);transform-origin:center;}
+.svc .photo{overflow:visible;}
+.svc .photo-wrap{overflow:visible;display:block;}
+/* tilt-on-hover for the service photos (no clipping thanks to visible overflow) */
+.svc:nth-child(1) .photo:hover img{transform:rotate(-2.4deg);}
+.svc:nth-child(2) .photo:hover img{transform:rotate(2.4deg);}
+.svc p.body{font-size:14.5px;line-height:2.05;color:#605d52;font-weight:500;margin-bottom:26px;flex:1 0 auto;}
+.svc .btn-ghost{align-self:flex-start;}
+.svc-img-zoom{transition:transform .8s cubic-bezier(.2,.7,.3,1);}
+
+/* ============ PRICE ============ */
+.price{position:relative;padding:44px 0 50px;}
+.price-cards{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:42px;position:relative;z-index:5;}
+.pcard{position:relative;background:var(--beige-card);border-radius:26px;padding:36px 36px 38px;transition:transform .5s cubic-bezier(.2,.8,.3,1),box-shadow .5s ease;}
+.pcard:hover{transform:translateY(-7px);box-shadow:0 26px 46px -26px rgba(120,105,70,.5);}
+.pcard .ttl{display:flex;align-items:center;gap:13px;margin-bottom:24px;}
+.pcard .ttl .ic{width:42px;height:42px;flex:none;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;color:var(--green);box-shadow:0 4px 10px -6px rgba(120,105,70,.5);}
+.pcard .ttl h3{font-size:21px;font-weight:700;color:#403e36;}
+.prow{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:12px 0;border-bottom:1px dashed #ddd0b6;}
+.plist{width:200px;max-width:100%;}
+.prow:last-of-type{border-bottom:none;}
+.prow .nm{font-size:14px;font-weight:500;color:#5b584d;white-space:nowrap;}
+.prow .pr{font-family:"Jost";font-weight:500;font-size:17px;color:var(--ink);white-space:nowrap;}
+.pcard .note{font-size:11.5px;color:#9a9583;margin-top:18px;}
+.pcard .pimg{position:absolute;z-index:2;bottom:-14px;}
+.pcard.clothes .pimg{right:-8px;width:215px;}
+.pcard.futon .pimg{right:-18px;width:240px;}
+.pcard .pimg img{transition:transform .7s cubic-bezier(.2,.7,.3,1);}
+.pcard:hover .pimg img{transform:scale(1.05) rotate(-1deg);}
+.price-foot{text-align:center;margin-top:34px;position:relative;z-index:5;}
+.price-foot span{display:inline-block;font-size:16px;font-weight:500;color:#5b584d;position:relative;padding:0 6px;}
+.price-foot span::before,.price-foot span::after{content:"";position:absolute;top:50%;width:40px;height:1px;background:#cdc6b2;}
+.price-foot span::before{right:100%;margin-right:18px;}
+.price-foot span::after{left:100%;margin-left:18px;}
+
+/* ============ FAQ ============ */
+.faq{position:relative;padding:44px 0 62px;}
+.faq-grid{display:grid;grid-template-columns:.95fr 1.1fr;gap:44px;align-items:center;margin-top:38px;position:relative;z-index:5;}
+.faq-photo{position:relative;}
+.faq-photo img{width:100%;transition:transform .8s cubic-bezier(.2,.7,.3,1);}
+.faq-photo:hover img{transform:scale(1.04);}
+.faq-list{display:flex;flex-direction:column;gap:14px;}
+.qa{background:#fbf8f1;border:1px solid #ece3d0;border-radius:16px;overflow:hidden;transition:box-shadow .4s ease,background .4s ease;}
+.qa:hover{box-shadow:0 14px 28px -20px rgba(120,105,70,.55);}
+.qa .q{display:flex;align-items:center;gap:15px;padding:19px 22px;cursor:pointer;list-style:none;}
+.qa .q::-webkit-details-marker{display:none;}
+.qbadge{width:30px;height:30px;flex:none;border-radius:50%;background:var(--green);color:#fff;font-family:"Jost";font-size:14px;display:flex;align-items:center;justify-content:center;}
+.qa .q .qt{flex:1;font-size:15.5px;font-weight:500;color:#4b4942;}
+.qa .q .plus{position:relative;width:18px;height:18px;flex:none;}
+.qa .q .plus::before,.qa .q .plus::after{content:"";position:absolute;background:var(--green);transition:transform .4s cubic-bezier(.34,1.4,.5,1),opacity .3s;}
+.qa .q .plus::before{top:8px;left:0;width:18px;height:2px;}
+.qa .q .plus::after{left:8px;top:0;width:2px;height:18px;}
+.qa.is-open .q .plus::after{transform:rotate(90deg);opacity:0;}
+/* zoom-proof accordion: animate grid rows instead of measured pixel heights */
+.qa .a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s cubic-bezier(.2,.8,.3,1);}
+.qa.is-open .a{grid-template-rows:1fr;}
+.qa .a .inner{overflow:hidden;min-height:0;padding:0 22px 22px 67px;font-size:14px;line-height:1.95;color:#6a675c;}
+
+/* ============ CTA ============ */
+.cta{position:relative;background:var(--sage-band);overflow:hidden;margin-top:10px;}
+.cta-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:30px;align-items:center;padding:58px 0;position:relative;z-index:5;}
+.cta-left{position:relative;display:flex;justify-content:center;}
+.cta-left .phone{width:212px;height:auto;position:relative;z-index:3;filter:drop-shadow(0 22px 34px rgba(80,90,55,.28));}
+.cta-bubble{position:absolute;left:-44px;top:46%;width:158px;z-index:4;}
+.cta h2{font-weight:700;font-size:30px;color:#42492f;letter-spacing:.03em;}
+.cta h2 .ln{font-family:"Jost";font-weight:500;letter-spacing:.04em;}
+.cta p{margin:18px 0 26px;font-size:15px;line-height:2;color:#54593f;font-weight:500;max-width:440px;}
+.cta-btn{display:inline-block;transition:transform .4s cubic-bezier(.34,1.5,.5,1),filter .4s ease;}
+.cta-btn img{width:300px;max-width:100%;}
+.cta-btn:hover{transform:translateY(-3px);filter:drop-shadow(0 14px 22px rgba(70,85,50,.3));}
+.cta-btn:active{transform:translateY(1px);}
+
+/* ============ FOOTER ============ */
+footer{background:var(--cream);padding:34px 0 40px;border-top:1px solid var(--line);}
+.ft{display:grid;grid-template-columns:1fr 1.1fr auto;gap:22px;align-items:center;}
+.ft .brand{font-family:"Jost";font-size:24px;letter-spacing:.14em;color:var(--ink);}
+.ft .sub{font-size:11px;color:var(--ink-soft);margin-top:6px;}
+.ft-info{font-size:13.5px;line-height:1.7;color:#5b584d;}
+.ft-info .row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+.ft-info .row+.row{margin-top:6px;}
+.ft-info .hours{display:flex;gap:18px;}
+.ft-right{display:flex;align-items:center;gap:22px;justify-content:flex-end;}
+.sns{display:flex;gap:14px;}
+.sns a img{width:30px;transition:transform .35s cubic-bezier(.34,1.6,.5,1);}
+.sns a:hover img{transform:scale(1.13) translateY(-2px);}
+.mini-pin{width:16px;height:16px;flex:none;color:var(--green);}
+
+/* ============ responsive ============
+   Main content (#scaleRoot) keeps the PC layout and is uniformly scaled,
+   so ONLY the header and footer adapt responsively below. */
+@media(max-width:1180px){
+  .hd{grid-template-columns:auto 1fr auto;}
+  .hd-cta{position:static;}
+  .hd-cta img{width:190px;}
+}
+@media(max-width:980px){
+  .hd{grid-template-columns:1fr auto;align-items:center;}
+  /* desktop CTA button hidden on mobile, lives inside the menu instead */
+  .hd-cta{display:none;}
+  .nav-toggle{display:flex;}
+  /* turn nav into a slide-in panel (ID keeps specificity above [data-reveal]) */
+  nav#mainNav.main{
+    display:flex;flex-direction:column;gap:0;opacity:1;
+    position:fixed;top:0;right:0;
+    width:min(82vw,330px);height:100dvh;
+    background:#fff;padding:88px 30px 40px;
+    box-shadow:-18px 0 50px -28px rgba(72,70,61,.5);
+    transform:translateX(105%);
+    transition:transform .42s cubic-bezier(.5,.05,.2,1);
+    z-index:40;overflow-y:auto;
+  }
+  nav#mainNav.main.open{transform:translateX(0);}
+  nav.main>a{font-size:17px;padding:16px 4px;border-bottom:1px solid var(--line);}
+  nav.main>a::after{display:none;}
+  nav.main>a.active{color:var(--green-text);}
+  .nav-line-cta{display:block;margin-top:22px;border:none !important;text-align:center;
+    background:var(--green);color:#fff !important;border-radius:40px;padding:15px 18px !important;font-weight:700;}
+  /* store details inside the hamburger panel */
+  .nav-extra{display:block;margin-top:26px;padding-top:24px;border-top:1px solid var(--line);}
+  .nav-brand{font-size:22px;letter-spacing:.12em;color:var(--ink);}
+  .nav-info{margin-top:13px;font-size:13px;line-height:1.7;color:#5b584d;}
+  .nav-info .nav-row{display:flex;align-items:flex-start;gap:8px;margin:0 0 8px;}
+  .nav-info .nav-row .mini-pin{margin-top:3px;}
+  .nav-info .nav-row span{min-width:0;overflow-wrap:anywhere;}
+  /* single-line phone row: vertically center icon and number */
+  .nav-info .nav-row--tel{align-items:center;}
+  .nav-info .nav-row--tel .mini-pin{margin-top:0;}
+  .nav-info a{color:inherit;}
+  .nav-actions{display:flex;align-items:center;gap:16px;margin-top:20px;}
+  .nav-ig img{width:30px;transition:transform .35s cubic-bezier(.34,1.6,.5,1);}
+  .nav-ig:hover img{transform:scale(1.12) translateY(-2px);}
+  /* footer keeps its current responsive (stacking) behaviour */
+  .ft{grid-template-columns:1fr;text-align:center;justify-items:center;}
+  .ft-right{justify-content:center;}
+  .ft-info .row,.ft-info .hours{justify-content:center;}
+}
+@media(max-width:380px){
+  nav#mainNav.main{width:88vw;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header>
+  <div class="wrap hd">
+    <div class="logo" data-reveal>
+      <div class="brand" style="font-weight: 600; font-family: &quot;DM Sans&quot;; font-size: clamp(28px, 6.5vw, 40px)">FU・KU・YA</div>
+      <div class="sub" style="font-size: 12px">鎌倉の大人服とオーダーメイド布団のお店</div>
+    </div>
+    <nav class="main" id="mainNav" data-reveal style="--d:.1s">
+      <a href="#home" class="active">ホーム</a>
+      <a href="#service">サービス</a>
+      <a href="#price">料金</a>
+      <a href="#faq">よくあるご質問</a>
+      <a class="nav-line-cta" href="https://page.line.me/638rnhrf" target="_blank" rel="noopener">LINEでお友だち登録</a>
+      <div class="nav-extra">
+        <div class="nav-brand eng">FU・KU・YA</div>
+        <div class="nav-info">
+          <p class="nav-row"><svg class="mini-pin" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22s7-6.6 7-12A7 7 0 1 0 5 10c0 5.4 7 12 7 12Z"/><circle cx="12" cy="10" r="2.4" fill="#fff"/></svg><span>神奈川県鎌倉市小袋谷2-21-21</span></p>
+          <p class="nav-row"><svg class="mini-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>月曜〜土曜 10:00〜18:00（日曜定休）</span></p>
+          <p class="nav-row nav-row--tel"><svg class="mini-pin" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.3 1l-2.1 2.3Z"/></svg><a href="tel:0467-44-7100">0467-44-7100</a></p>
+        </div>
+        <div class="nav-actions">
+          <a class="nav-ig" href="https://www.instagram.com/fukuya_fuku/" target="_blank" rel="noopener" aria-label="Instagram"><img src="img/icon-instagram.png" alt="Instagram"></a>
+          <a class="btn-ghost btn-sm" href="https://maps.app.goo.gl/itXksg4BtbmiPimy5" target="_blank" rel="noopener">店舗へのアクセス <span class="arw">&#8250;</span></a>
+        </div>
+      </div>
+    </nav>
+    <a class="hd-cta" href="https://page.line.me/638rnhrf" target="_blank" rel="noopener" data-reveal="pop" style="--d:.2s">
+      <img src="img/btn-line-register.png" alt="LINEでお友だち登録する">
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="mainNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- scaleRoot keeps the PC layout intact and scales it down on smaller screens -->
+<main id="scaleRoot">
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="home">
+  <img class="deco float-b" data-reveal="fade" src="img/blob-cream.png" style="left:-180px;top:-70px;width:560px;opacity:.95;">
+  <img class="deco" data-reveal="blob" src="img/big-yellow-drop.png" style="left:-70px;bottom:10px;width:240px;opacity:.9;">
+  <img class="deco dot-anim" data-reveal="fade" src="img/dots-green-1.png" style="left:38%;top:14px;width:160px;--d:.3s;">
+  <img class="deco float-a" data-reveal="blob" src="img/blob-yellow-peanut.png" style="right:-90px;bottom:-10px;width:420px;opacity:.92;">
+  <img class="deco dot-anim" data-reveal="fade" src="img/dots-yellow.png" style="right:150px;bottom:24px;width:130px;--d:.4s;">
+  <img class="deco line-sway" data-reveal="fade" src="img/line-leaf-1.png" style="right:1%;top:420px;width:120px;--d:.5s;">
+  <img class="deco" data-reveal="blob" src="img/blob-peach2.png" style="right:200px;top:-30px;width:150px;opacity:.7;--d:.2s;">
+  <img class="deco dot-anim" data-reveal="fade" src="img/dots-sage.png" style="left:33%;bottom:30px;width:90px;--d:.5s;">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <img class="script-k" data-reveal src="img/script-kamakura.png" alt="Kamakura my favorite place.">
+        <h1 data-reveal style="--d: .08s; opacity: 1">わたしらしく、
+心地よく。
+鎌倉で見つかる
+自分らしい服。</h1>
+        <p class="lead" data-reveal style="--d:.18s">季節に寄り添う大人の服と、<br>あなただけの心地よい眠りを。<br>日常をちょっと特別にするお店です。</p>
+        <div class="place" data-reveal style="--d:.26s">湘南モノレール 富士見町駅 徒歩5分</div>
+        <img class="deco sway-x" data-reveal="fade" src="img/ill-bicycle.png" style="position:relative;display:block;width:205px;margin-top:16px;opacity:.9;--d:.4s;">
+      </div>
+      <div class="hero-media">
+        <div class="interior ph-frame" data-reveal="blob"><img src="img/photo-interior.png" alt="店内の様子" style="width: 100%; height: auto; opacity: 1"></div>
+        <div class="storefront ph-frame" data-reveal="blob" style="--d:.18s"><img src="img/photo-storefront.png" alt="店舗外観"></div>
+        <img class="script-f deco" data-reveal="fade" src="img/script-forme.png" style="--d:.5s" alt="For me, a special day.">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SERVICE ===================== -->
+<section class="service" id="service">
+  <img class="deco" data-reveal="blob" src="img/big-green-bean.png" style="left:-130px;top:80px;width:260px;opacity:.5;">
+  <img class="deco" data-reveal="blob" src="img/blob-peach-round.png" style="right:-110px;bottom:40px;width:240px;opacity:.55;">
+  <img class="deco dot-anim" data-reveal="fade" src="img/dots-green-2.png" style="right:5%;top:90px;width:140px;--d:.3s;">
+  <img class="deco float-b" data-reveal="fade" src="img/line-leaf-green.png" style="left:46%;top:240px;width:150px;z-index:6;--d:.5s;">
+  <img class="deco dot-anim" data-reveal="fade" src="img/dots-yellow.png" style="left:3%;bottom:90px;width:120px;--d:.4s;">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow eng" data-reveal>Service</p>
+      <h2 data-reveal style="--d:.08s">サービス</h2>
+    </div>
+    <div class="service-grid">
+      <div class="svc" data-reveal style="--d:.06s">
+        <div class="badge eng">01</div>
+        <h3>季節に合わせた大人服</h3>
+        <div class="photo"><span class="photo-wrap"><img class="svc-img-zoom" src="img/photo-rack.png" alt="セレクトした洋服"></span></div>
+        <p class="body">素材や着心地にこだわったお洋服を、店主が選んでいます。
+少し遊び心のある “大人の女性のための服” を揃えています。</p>
+        <button class="btn-ghost">詳しく見る <span class="arw">&#8250;</span></button>
+      </div>
+      <div class="svc" data-reveal style="--d:.18s">
+        <div class="badge eng">02</div>
+        <h3>オーダーメイド布団</h3>
+        <div class="photo"><span class="photo-wrap"><img class="svc-img-zoom" src="img/photo-futon-stack.png" alt="オーダーメイド布団"></span></div>
+        <p class="body">一人ひとりの体型やお悩みに合わせて、素材・厚み・サイズを丁寧にご提案。ぐっすり眠れて、からだにやさしい“あなただけの一枚”をお作りします。</p>
+        <button class="btn-ghost">詳しく見る <span class="arw">&#8250;</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRICE ===================== -->
+<section class="price" id="price">
+  <img class="deco" data-reveal="blob" src="img/big-sage-hill.png" style="right:-140px;top:70px;width:540px;opacity:.42;">
+  <img class="deco" data-reveal="blob" src="img/blob-sage-2.png" style="left:-50px;bottom:30px;width:170px;opacity:.6;">
+  <img class="deco dot-anim" data-reveal="fade" src="img/dots-yellow.png" style="right:4%;bottom:50px;width:110px;--d:.4s;">
+  <img class="deco dot-anim" data-reveal="fade" src="img/dots-green-1.png" style="left:4%;top:60px;width:110px;--d:.3s;">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow eng" data-reveal>Price</p>
+      <h2 data-reveal style="--d:.08s">料金の目安</h2>
+    </div>
+    <div class="price-cards">
+      <div class="pcard clothes" data-reveal style="--d:.06s">
+        <div class="ttl">
+          <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6a2 2 0 1 1 1.4 1.9c-.6.2-1.4.6-1.4 1.6"/><path d="M12 9.5 4 15.5c-1 .8-.5 2.5 1 2.5h14c1.5 0 2-1.7 1-2.5L12 9.5Z"/></svg></span>
+          <h3>お洋服</h3>
+        </div>
+        <div class="plist">
+        <div class="prow"><span class="nm">トップス</span><span class="pr">¥4,000〜</span></div>
+        <div class="prow"><span class="nm">ワンピース</span><span class="pr">¥5,000〜</span></div>
+        <div class="prow"><span class="nm">パンツ・スカート</span><span class="pr">¥3,000〜</span></div>
+        <div class="prow"><span class="nm">アウター</span><span class="pr">¥12,000〜</span></div>
+        <div class="note">※すべて税込価格です</div>
+        </div>
+        <div class="pimg"><img src="img/photo-dress.png" alt="お洋服"></div>
+      </div>
+      <div class="pcard futon" data-reveal style="--d:.18s">
+        <div class="ttl">
+          <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="13" width="18" height="6" rx="3"/><path d="M5 13c0-3 2-5 7-5s7 2 7 5"/><path d="M9 8.5V13M15 8.5V13"/></svg></span>
+          <h3>オーダーメイド布団</h3>
+        </div>
+        <div class="plist">
+        <div class="prow"><span class="nm">シングルサイズ</span><span class="pr">¥55,000〜</span></div>
+        <div class="prow"><span class="nm">セミダブルサイズ</span><span class="pr">¥66,000〜</span></div>
+        <div class="prow"><span class="nm">ダブルサイズ</span><span class="pr">¥77,000〜</span></div>
+        <div class="note">※素材・仕様により価格が変わります</div>
+        </div>
+        <div class="pimg"><img src="img/photo-futon-fluffy.png" alt="オーダーメイド布団"></div>
+      </div>
+    </div>
+    <div class="price-foot" data-reveal><span>まずはお気軽にご相談ください。お見積り・ご相談は無料です。</span></div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="faq" id="faq">
+  <img class="deco" data-reveal="blob" src="img/big-sage-pill.png" style="left:-130px;top:120px;width:480px;opacity:.5;">
+  <img class="deco" data-reveal="blob" src="img/blob-peach2.png" style="right:-70px;top:40px;width:200px;opacity:.5;">
+  <img class="deco dot-anim" data-reveal="fade" src="img/dots-sage.png" style="right:3%;top:90px;width:130px;--d:.3s;">
+  <img class="deco line-sway" data-reveal="fade" src="img/line-green-sprig.png" style="right:-10px;bottom:90px;width:170px;--d:.45s;">
+  <img class="deco dot-anim" data-reveal="fade" src="img/dots-yellow.png" style="right:16%;bottom:30px;width:100px;--d:.5s;">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow eng" data-reveal>FAQ</p>
+      <h2 data-reveal style="--d:.08s">よくあるご質問</h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-photo" data-reveal="blob"><img src="img/photo-room.png" alt="店内の様子"></div>
+      <div class="faq-list">
+        <details class="qa" data-reveal style="--d:.05s">
+          <summary class="q"><span class="qbadge eng">Q</span><span class="qt">試着はできますか？</span><span class="plus"></span></summary>
+          <div class="a"><div class="inner">もちろん可能です。ゆったりとした試着スペースをご用意しておりますので、お気軽にお声がけください。コーディネートのご相談も承ります。</div></div>
+        </details>
+        <details class="qa" data-reveal style="--d:.13s">
+          <summary class="q"><span class="qbadge eng">Q</span><span class="qt">オーダーメイド布団はどのくらいでできますか？</span><span class="plus"></span></summary>
+          <div class="a"><div class="inner">ご注文内容にもよりますが、通常2〜3週間ほどでお仕立ていたします。お急ぎの場合はご相談ください。</div></div>
+        </details>
+        <details class="qa" data-reveal style="--d:.21s">
+          <summary class="q"><span class="qbadge eng">Q</span><span class="qt">駐車場はありますか？</span><span class="plus"></span></summary>
+          <div class="a"><div class="inner">店舗すぐの場所に、お客様用駐車場を2台ご用意しております。小袋谷交差点（点滅信号）からすぐですので、お車でも安心してお越しください。</div></div>
+        </details>
+        <details class="qa" data-reveal style="--d:.29s">
+          <summary class="q"><span class="qbadge eng">Q</span><span class="qt">プレゼント用のラッピングはできますか？</span><span class="plus"></span></summary>
+          <div class="a"><div class="inner">はい、承っております。大切な方への贈り物に合わせて、丁寧にラッピングいたします。メッセージカードもご用意できます。</div></div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA ===================== -->
+<section class="cta" id="cta">
+  <img class="deco line-sway" data-reveal="fade" src="img/ill-vase.png" style="right:53%;top:42px;width:118px;opacity:.55;--d:.3s;">
+  <img class="deco line-sway" data-reveal="fade" src="img/ill-chair.png" style="right:4%;bottom:14px;width:150px;opacity:.55;--d:.4s;">
+  <img class="deco line-sway" data-reveal="fade" src="img/ill-frame.png" style="right:23%;bottom:24px;width:130px;opacity:.5;--d:.5s;">
+  <div class="wrap">
+    <div class="cta-grid">
+      <div class="cta-left">
+        <img class="phone" data-reveal="pop" src="img/photo-phone.png" alt="LINEお友だち限定 10%OFFクーポン">
+        <img class="cta-bubble deco float-a" data-reveal="fade" src="img/bubble-friend.png" style="--d:.3s" alt="お友だち登録ですぐ使える♪">
+      </div>
+      <div class="cta-copy">
+        <h2 data-reveal><span class="ln">LINE</span>でクーポン配布中！</h2>
+        <p data-reveal style="--d:.1s">新作情報やイベントのお知らせもLINEでお届けしています。<br>ぜひお友だち登録してください。</p>
+        <a class="cta-btn" data-reveal="pop" style="--d:.2s" href="https://page.line.me/638rnhrf" target="_blank" rel="noopener"><img src="img/btn-line-register.png" alt="LINEでお友だち登録する"></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<!-- /scaleRoot -->
+
+<!-- ===================== FOOTER ===================== -->
+<footer id="access">
+  <div class="wrap ft">
+    <div class="logo" data-reveal>
+      <div class="brand" style="font-family: &quot;DM Sans&quot;; font-weight: 600">FU・KU・YA</div>
+      <div class="sub">鎌倉の大人服とオーダーメイド布団のお店</div>
+    </div>
+    <div class="ft-info" data-reveal style="--d:.1s">
+      <div class="row"><svg class="mini-pin" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22s7-6.6 7-12A7 7 0 1 0 5 10c0 5.4 7 12 7 12Z"/><circle cx="12" cy="10" r="2.4" fill="#fff"/></svg>神奈川県鎌倉市小袋谷2-21-21</div>
+      <div class="row"><svg class="mini-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>営業時間　月曜〜土曜 10:00〜18:00</div>
+      <div class="row"><svg class="mini-pin" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.3 1l-2.1 2.3Z"/></svg>TEL <a href="tel:0467-44-7100">0467-44-7100</a></div>
+    </div>
+    <div class="ft-right" data-reveal style="--d:.2s">
+      <div class="sns">
+        <a href="https://www.instagram.com/fukuya_fuku/" target="_blank" rel="noopener" aria-label="Instagram"><img src="img/icon-instagram.png" alt="Instagram"></a>
+      </div>
+      <a class="btn-ghost btn-sm" href="https://maps.app.goo.gl/itXksg4BtbmiPimy5" target="_blank" rel="noopener">店舗へのアクセス <span class="arw">&#8250;</span></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Scale the PC layout uniformly so the arrangement never reflows on smaller
+// screens. The content is authored at DESIGN_WIDTH and zoomed to fit.
+(function(){
+  var DESIGN_WIDTH=1280;
+  var root=document.getElementById('scaleRoot');
+  if(!root) return;
+  function fit(){
+    var w=document.documentElement.clientWidth;
+    if(w>=DESIGN_WIDTH){
+      root.style.width='';
+      root.style.zoom='';
+    }else{
+      root.style.width=DESIGN_WIDTH+'px';
+      root.style.zoom=(w/DESIGN_WIDTH).toFixed(5);
+    }
+  }
+  fit();
+  window.addEventListener('resize',fit);
+  window.addEventListener('orientationchange',fit);
+  window.addEventListener('load',fit);
+})();
+
+// mobile navigation toggle
+(function(){
+  var toggle=document.getElementById('navToggle');
+  var nav=document.getElementById('mainNav');
+  var overlay=document.getElementById('navOverlay');
+  if(!toggle||!nav) return;
+  function setOpen(open){
+    nav.classList.toggle('open',open);
+    if(overlay) overlay.classList.toggle('open',open);
+    toggle.setAttribute('aria-expanded',open?'true':'false');
+    toggle.setAttribute('aria-label',open?'メニューを閉じる':'メニューを開く');
+    document.body.style.overflow=open?'hidden':'';
+  }
+  toggle.addEventListener('click',function(){ setOpen(!nav.classList.contains('open')); });
+  if(overlay) overlay.addEventListener('click',function(){ setOpen(false); });
+  nav.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ setOpen(false); }); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') setOpen(false); });
+  window.addEventListener('resize',function(){ if(window.innerWidth>980) setOpen(false); });
+})();
+
+// FAQ accordion (zoom-proof; animates via CSS grid-template-rows)
+document.querySelectorAll('.qa').forEach(function(d){
+  if(d.open){ d.classList.add('is-open'); }
+  d.querySelector('.q').addEventListener('click',function(e){
+    e.preventDefault();
+    var willOpen=!d.classList.contains('is-open');
+    if(willOpen){ d.open=true; d.classList.add('is-open'); }
+    else { d.classList.remove('is-open'); setTimeout(function(){ d.open=false; },520); }
+  });
+});
+
+// reveal on scroll
+var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(reduce){
+  document.querySelectorAll('[data-reveal]').forEach(function(el){ el.classList.add('is-visible'); });
+}else{
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('is-visible'); io.unobserve(en.target); } });
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('[data-reveal]').forEach(function(el){ io.observe(el); });
+}
+
+// nav active state on scroll
+var secs=['home','service','price','faq','access'].map(function(id){return document.getElementById(id);});
+var navlinks=document.querySelectorAll('nav.main>a');
+window.addEventListener('scroll',function(){
+  var y=window.scrollY+140, cur='home';
+  secs.forEach(function(s){ if(s && s.offsetTop<=y) cur=s.id; });
+  navlinks.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href')==='#'+cur); });
+},{passive:true});
+</script>
+<template id="__bundler_thumbnail" data-bg-color="#FBF7EE">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#FBF7EE"/>
+    <ellipse cx="930" cy="250" rx="230" ry="200" fill="#e9c466" opacity="0.5"/>
+    <ellipse cx="270" cy="560" rx="210" ry="170" fill="#9aab78" opacity="0.45"/>
+    <text x="600" y="400" font-family="Jost, sans-serif" font-size="120" font-weight="400" letter-spacing="10" fill="#62794a" text-anchor="middle">FU·KU·YA</text>
+    <text x="600" y="470" font-family="sans-serif" font-size="30" fill="#7c7869" text-anchor="middle">鎌倉の婦人服とオーダーメイド布団のお店</text>
+  </svg>
+</template>
+</body>
+</html>
